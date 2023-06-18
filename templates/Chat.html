@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebSocket Chat</title>
+</head>
+<body>
+<h1>WebSocket Chat</h1>
+<ul id="messages"></ul>
+<label for="message">Message:</label>
+<input type="text" id="message" autofocus/>
+<button id="sendButton">Send</button>
+<script>
+    const input = document.getElementById("message");
+    input.addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
+            sendMessage();
+        }
+    });
+    const socket = new WebSocket("ws://localhost:8000/chat");
+    socket.addEventListener('message', function (event) {
+        const messages = document.getElementById('messages');
+        const message = document.createElement('li');
+        const content = document.createTextNode(event.data);
+        message.appendChild(content);
+        messages.appendChild(message);
+    });
+
+    function sendMessage() {
+        const input = document.getElementById("message");
+        const message = input.value;
+        socket.send(message);
+        input.value = '';
+    }
+
+    const sendButton = document.getElementById("sendButton");
+    sendButton.addEventListener("click", sendMessage);
+</script>
+</body>
+</html>
