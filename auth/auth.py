@@ -81,7 +81,7 @@ class CookieTransport(Transport):
         return {status.HTTP_200_OK: {"description": "Success"}}
 
 
-cookie_transport = CookieTransport(cookie_name="bonds", cookie_max_age=3600)
+cookie_transport = CookieTransport(cookie_name="chat", cookie_max_age=3600)
 
 SECRET = "SECRET"
 
